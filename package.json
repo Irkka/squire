@@ -1,0 +1,19 @@
+{
+  "name": "squire",
+  "version": "0.0.1",
+  "description": "Bash dependency manager and loader",
+  "author": "Ilkka Hakkarainen",
+  "bugs": {
+    "url": "http://github.com/Irkka/squire/issues",
+  }
+  "license": "MIT",
+  "install": "PREFIX=\"~/.local\" make install"
+  "bin": {
+    "squire": "./bin/squire"
+  },
+  "main": "lib/squire.sh",
+  "keywords": [
+    "bash",
+    "dependency"
+  ]
+}
