@@ -1,17 +1,34 @@
 function require() {
-  library_directories=$(echo $BASHLIBPATH|tr ':', ' ')
+  library_directories=$(echo $BASHLIB_PATH|tr ':', ' ')
   for library_directory in $library_directories ; do
-    library=$(readlink -m "${library_directory%%\/}/${1%%\.*}.sh")
-    if [[ -f $library ]]; then
-      source $library
-      break
+    library=$(readlink -f "${library_directory%%\/}/${1%%\.*}")
+    if load $library ; then
+      return 0
     fi
   done
+
+  echo "Library $library could not be found"
+  exit 1
 }
 
+# At the moment $BASH_SOURCE needs to be passed to require_relative
+# but preferably this functionality should be incorporated to the
+# function itself – no clue how to achieve this yet, though
 function require_relative() {
-  library=$(readlink -f "${BASH_SOURCE}/${1##\/%%\.*}.sh")
-  echo $library
+  if [[ -d $1 ]]; then
+    relative_root_directory="$1"
+  else
+    relative_root_directory="${1%/*}"
+  fi
+
+  library_relative_path="${2}"
+  library=$(readlink -f "${relative_root_directory}/${library_relative_path}")
+  if load "${library}"; then
+    return 0
+  fi
+
+  echo "Library $library could not be found"
+  exit 1
 }
 
 export -f require require_relative
