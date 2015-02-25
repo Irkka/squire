@@ -1,13 +1,15 @@
 function require() {
+  required_library=$1
   library_directories=$(echo $BASHLIB_PATH|tr ':', ' ')
+
   for library_directory in $library_directories ; do
-    library=$(readlink -f "${library_directory%%\/}/${1%%\.*}")
+    library=$(readlink -f "${library_directory%%\/}/${required_library%%\.*}")
     if load $library ; then
       return 0
     fi
   done
 
-  echo "Library $library could not be found"
+  echo "Library $required_library could not be found"
   exit 1
 }
 
@@ -20,9 +22,9 @@ function require_relative() {
   else
     relative_root_directory="${1%/*}"
   fi
+  required_library_relative_path="${2}"
 
-  library_relative_path="${2}"
-  library=$(readlink -f "${relative_root_directory}/${library_relative_path}")
+  library=$(readlink -f "${relative_root_directory}/${required_library_relative_path}")
   if load "${library}"; then
     return 0
   fi

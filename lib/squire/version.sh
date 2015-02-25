@@ -5,3 +5,4 @@ function version() {
 }
 
 export -f version
+export SQUIRE_VERSION
