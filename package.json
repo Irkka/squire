@@ -7,10 +7,7 @@
     "url": "http://github.com/Irkka/squire/issues",
   }
   "license": "MIT",
-  "install": "PREFIX=\"~/.local\" make install"
-  "bin": {
-    "squire": "./bin/squire"
-  },
+  "install": "PREFIX=\"${HOME}/.local\" make install",
   "main": "lib/squire.sh",
   "keywords": [
     "bash",
