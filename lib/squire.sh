@@ -9,10 +9,11 @@ function setup_squire() {
   # Enable require functionality
   source "${SQUIRE_PATH}/squire/load.sh"
   source "${SQUIRE_PATH}/squire/require.sh"
-
-  require_relative $SQUIRE_PATH 'squire/version'
 }
 
 setup_squire
+
+require_relative $BASH_SOURCE 'squire/version'
+require_relative $BASH_SOURCE 'squire/dependency_manager'
 
 export SQUIRE_APPLICATION_NAME LOADED_BY_SQUIRE BASHLIB_PATH
