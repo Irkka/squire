@@ -1,0 +1,8 @@
+#!/bin/bash
+
+squire_version=$(version)
+if [[ $squire_version =~ squire* ]]; then
+  squire_configure "$@"
+else
+  echo 'Squire not loaded'
+fi

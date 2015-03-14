@@ -1,3 +1,9 @@
+# Sources the given library.
+#
+# @example Source a file
+#   #!/bin/bash
+#   load 'example'
+# @param $1 [String] The library to be loaded
 function load() {
   library="${1}.sh"
 
