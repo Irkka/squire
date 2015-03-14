@@ -1,8 +1,20 @@
 #!/bin/bash
 
-squire_version=$(version)
-if [[ $squire_version =~ squire* ]]; then
-  squire_configure "$@"
-else
-  echo 'Squire not loaded'
-fi
+require 'squire'
+
+while [[ -n "$1" ]]; do
+  case "$1" in
+    install )
+      shift
+      break
+      ;;
+    uninstall )
+      shift
+      break
+      ;;
+    * )
+      echo 'You can kiss my ass...'
+      exit 1
+      ;;
+  esac
+done
