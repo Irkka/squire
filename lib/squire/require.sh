@@ -17,8 +17,8 @@ function require() {
     fi
   done
 
-  echo "Library $required_library could not be found"
-  exit 1
+  process_failure $required_library
+  return 1
 }
 
 # Searches for the given library relative to the path of the
@@ -46,8 +46,21 @@ function require_relative() {
     return 0
   fi
 
-  echo "Library $library could not be found"
-  exit 1
+  process_failure $required_library_relative_path
+  return 1
+}
+
+function process_failure() {
+  required_library=$1
+
+  echo "Library $required_library could not be found."
+
+  confirmation='Y'
+  read -t 10 -p 'Abort? (Y/n) ' confirmation
+
+  if [[ $confirmation =~ ^([Yy]|[Yy][Ee][Ss])$ ]]; then
+    exit 1
+  fi
 }
 
 export -f require require_relative
