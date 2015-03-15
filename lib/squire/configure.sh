@@ -2,53 +2,23 @@ function squire_configure() {
   SQUIRE_CONFIG=${SQUIRE_CONFIG:-${XDG_CONFIG_HOME}/${SQUIRE_APPLICATION_NAME}}
   SQUIRE_DATA=${SQUIRE_DATA:-${XDG_DATA_HOME}/${SQUIRE_APPLICATION_NAME}}
   SQUIRE_CACHE=${SQUIRE_CACHE:-${XDG_CACHE_HOME}/${SQUIRE_APPLICATION_NAME}}
+  SQUIRE_CACHE_BIN="${SQUIRE_CACHE}/bin"
+  SQUIRE_CACHE_LIB="${SQUIRE_CACHE}/lib"
+  SQUIRE_CACHE_AWKPATH="${SQUIRE_CACHE}/awk"
   SQUIRE_GLOBAL_LIBRARIES_DIR="${SQUIRE_GLOBAL_LIBRARIES_DIR:-${SQUIRE_CACHE}/external}"
 
-  create_directories $SQUIRE_CONFIG $SQUIRE_DATA $SQUIRE_CACHE $SQUIRE_GLOBAL_LIBRARIES_DIR
-  export SQUIRE_CONFIG SQUIRE_DATA SQUIRE_CACHE SQUIRE_GLOBAL_LIBRARIES_DIR
+  create_directories $SQUIRE_CONFIG $SQUIRE_DATA $SQUIRE_CACHE $SQUIRE_CACHE_BIN $SQUIRE_CACHE_LIB $SQUIRE_CACHE_AWKPATH $SQUIRE_GLOBAL_LIBRARIES_DIR
+
+  PATH="${PATH}:${SQUIRE_CACHE_BIN}"
+  if [[ ! -v AWKPATH ]]; then
+    AWKPATH="${SQUIRE_CACHE_AWKPATH}"
+  else
+    AWKPATH="${AWKPATH}:${SQUIRE_CACHE_AWKPATH}"
+  fi
+
+  export SQUIRE_CONFIG SQUIRE_DATA SQUIRE_CACHE SQUIRE_CACHE_BIN SQUIRE_CACHE_LIB SQUIRE_GLOBAL_LIBRARIES_DIR PATH AWKPATH
 
   build_external_library_path $SQUIRE_GLOBAL_LIBRARIES_DIR
-}
-
-function build_external_library_path() {
-  library_directory=$1
-  libraries=$(ls -1 $library_directory|xargs)
-
-  for library in $libraries; do
-    library_path="${library_directory}/${library}"
-    if [[ -d $library_path ]]; then
-      process_external_library $library_path
-    fi
-  done
-  # This should be managed when running squire within projects not at bootstrapping time
-  #SQUIRE_DEPENDENCIES_DIR=${SQUIRE_DEPENDENCIES_DIR:-$(readlink -m $(dirname $(reverse_find ${BASH_SOURCE%/*} 'Squirefile')))/squire_dependencies}
-}
-
-function process_external_library() {
-  external_library_path=$1
-
-  process_bin_path $external_library_path
-  process_lib_path $external_library_path
-}
-
-function process_bin_path() {
-  external_library_path=$1
-  # Convention over configuration for now
-  external_library_bin_path="${external_library_path}/bin"
-
-  if [[ -d $external_library_bin_path ]]; then
-    append_bin_path $external_library_bin_path
-  fi
-}
-
-function process_lib_path() {
-  external_library_path=$1
-  # Convention over configuration for now
-  external_library_lib_path="${external_library_path}/lib"
-
-  if [[ -d $external_library_lib_path ]]; then
-    append_library_path $external_library_lib_path
-  fi
 }
 
 function parse_cli_command() {

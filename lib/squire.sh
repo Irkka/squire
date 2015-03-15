@@ -43,6 +43,6 @@ require_relative $BASH_SOURCE 'squire/version'
 require_relative $BASH_SOURCE 'squire/usage'
 require_relative $BASH_SOURCE 'squire/utilities'
 require_relative $BASH_SOURCE 'squire/configure'
-squire_configure "$@"
-
 require_relative $BASH_SOURCE 'squire/dependency_manager'
+
+squire_configure "$@"

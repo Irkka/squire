@@ -30,26 +30,4 @@ function create_directories() {
   done
 }
 
-# Add dependency's library path to the SQUIRE_LIB_PATH
-# global variable.
-#
-# @param $1 [String] The library path to append to SQUIRE_LIB_PATH
-function append_library_path() {
-  library_path=$1
-  SQUIRE_LIB_PATH=${SQUIRE_LIB_PATH}:${library_path}
-
-  export SQUIRE_LIB_PATH
-}
-
-# Add dependency's binary path to the PATH global
-# variable.
-#
-# @param $1 [String] The binary path to append to PATH
-function append_bin_path() {
-  binary_path=$1
-  PATH=${PATH}:${binary_path}
-
-  export PATH
-}
-
-export -f reverse_find append_library_path
+export -f reverse_find create_directories

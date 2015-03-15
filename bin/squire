@@ -6,10 +6,12 @@ while [[ -n "$1" ]]; do
   case "$1" in
     install )
       shift
+      echo $@
       break
       ;;
     uninstall )
       shift
+      echo $@
       break
       ;;
     * )
