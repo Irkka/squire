@@ -9,8 +9,12 @@ function enable_require() {
   SQUIRE_PATH=${SQUIRE_ENTRY_POINT%/*}
   SQUIRE_LIB_PATH=${SQUIRE_LIB_PATH:-$SQUIRE_PATH}
 
-  source "${SQUIRE_PATH}/squire/load.sh"
-  source "${SQUIRE_PATH}/squire/require.sh"
+  SQUIRE_BASE="squire/base"
+
+  source "${SQUIRE_PATH}/${SQUIRE_BASE}/process_missing_library.sh"
+  source "${SQUIRE_PATH}/${SQUIRE_BASE}/load.sh"
+  source "${SQUIRE_PATH}/${SQUIRE_BASE}/require.sh"
+  source "${SQUIRE_PATH}/${SQUIRE_BASE}/require_relative.sh"
 
   # Squire loads libraries only once with load.
   # It checks LOADED_BY_SQUIRE array before issuing a source call.
