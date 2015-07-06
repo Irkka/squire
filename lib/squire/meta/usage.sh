@@ -1,4 +1,4 @@
-function usage() {
+function squire_usage() {
   version
   echo <<USAGE
   squire <install (-g)>
