@@ -1,7 +1,8 @@
 function squire_usage() {
-  version
-  echo <<USAGE
+  squire_version
+  cat <<USAGE
   squire <install (-g)>
 USAGE
-  exit 1
+
+  return 1
 }
