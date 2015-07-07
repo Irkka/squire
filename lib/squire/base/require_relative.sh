@@ -11,17 +11,16 @@
 # @param $1 [String] Full path to the current file
 # @param $2 [String] Required library's path relative to the calling script
 function require_relative() {
-  relative_bash_source=$(readlink -m $1)
+  local relative_bash_source=$(readlink -m $1)
 
   if [[ -d $1 ]]; then
-    relative_root_directory="$relative_bash_source"
+    local relative_root_directory="$relative_bash_source"
   else
-    relative_root_directory="${relative_bash_source%/*}"
+    local relative_root_directory="${relative_bash_source%/*}"
   fi
-  required_library_relative_path="${2}"
+  local required_library_relative_path="${2}"
 
-  library=$(readlink -f "${relative_root_directory}/${required_library_relative_path}")
-  echo $library
+  local library=$(readlink -f "${relative_root_directory}/${required_library_relative_path}")
 
   if load "${library}"; then
     return 0

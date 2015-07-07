@@ -7,11 +7,11 @@
 #   require 'example'
 # @param $1 [String] the library to be searched for
 function require() {
-  required_library=$1
-  library_directories=$(echo $SQUIRE_LIB_PATH|tr ':', ' ')
+  local required_library=$1
+  local library_directories=$(echo $SQUIRE_LIB_PATH|tr ':', ' ')
 
   for library_directory in $library_directories ; do
-    library=$(readlink -f "${library_directory%%\/}/${required_library%%\.*}")
+    local library=$(readlink -f "${library_directory%%\/}/${required_library%%\.*}")
     if load $library ; then
       return 0
     fi

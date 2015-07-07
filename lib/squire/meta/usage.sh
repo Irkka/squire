@@ -1,7 +1,11 @@
 function squire_usage() {
-  version
-  echo <<USAGE
-  squire <install (-g)>
+  squire_version
+  cat <<USAGE
+  # To locate squire installation and load it up
+  eval $(squire init)
+  # To install or uninstall local or global libraries
+  squire <install (-g)|uninstall (-g)>
 USAGE
-  exit 1
+
+  return 1
 }

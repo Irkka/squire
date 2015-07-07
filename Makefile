@@ -23,11 +23,13 @@ install:
 	@echo 'Installing binaries'
 	@for binary in $(binaries); do \
 		echo $$binary; \
+		mkdir -p $(PREFIX)/bin; \
 		cp $(binary_path)/$$binary $(PREFIX)/bin/$$binary; \
 	done
 	@echo 'Installing libraries'
 	@for library in $(libraries); do \
 		echo $$library; \
+		mkdir -p $(PREFIX)/lib; \
 		cp -r $(library_path)/$$library $(PREFIX)/lib/$$library; \
 	done
 uninstall:
