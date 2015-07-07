@@ -21,7 +21,6 @@ function require_relative() {
   required_library_relative_path="${2}"
 
   library=$(readlink -f "${relative_root_directory}/${required_library_relative_path}")
-  echo $library
 
   if load "${library}"; then
     return 0

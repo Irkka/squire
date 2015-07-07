@@ -18,6 +18,7 @@ function load() {
     source $library
     LOADED_BY_SQUIRE="${LOADED_BY_SQUIRE} ${library}"
     export LOADED_BY_SQUIRE
+    echo "${library} loaded"
 
     return 0
   fi
