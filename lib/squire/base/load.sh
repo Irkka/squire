@@ -5,7 +5,7 @@
 #   load 'example'
 # @param $1 [String] The library to be loaded
 function load() {
-  library="${1}.sh"
+  local library="${1}.sh"
 
   if [[ -f $library ]]; then
     for loaded_library in ${LOADED_BY_SQUIRE}; do
@@ -18,8 +18,8 @@ function load() {
     source $library
     LOADED_BY_SQUIRE="${LOADED_BY_SQUIRE} ${library}"
     export LOADED_BY_SQUIRE
-    echo "${library} loaded"
 
+    echo "${library} loaded"
     return 0
   fi
 

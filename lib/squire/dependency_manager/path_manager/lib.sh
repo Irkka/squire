@@ -1,13 +1,13 @@
 function process_lib_path() {
-  library_path=$1
+  local library_path=$1
   # Convention over configuration for now
-  library_lib_path="${library_path}/lib"
+  local library_lib_path="${library_path}/lib"
 
   if [[ -d $library_lib_path ]]; then
-    library_libraries=$(ls $library_lib_path)
+    local library_libraries=$(ls $library_lib_path)
     for library in $library_libraries; do
-      library_path="${library_lib_path}/${library}"
-      library_target_path="${SQUIRE_CACHE_LIB}/$library"
+      local library_path="${library_lib_path}/${library}"
+      local library_target_path="${SQUIRE_CACHE_LIB}/$library"
       if [[ -f $library_path && ! -e $library_target_path ]]; then
         ln -s $library_path $library_target_path
       else

@@ -5,9 +5,10 @@
 # necessary files to manage more dynamic requiring of
 # libraries.
 function enable_require() {
-  squire_entry_point=$(readlink -m $BASH_SOURCE)
+  local squire_entry_point=$(readlink -m $BASH_SOURCE)
+  local squire_base="squire/base"
+
   SQUIRE_LIB_PATH=${squire_entry_point%/*}
-  squire_base="squire/base"
 
   source "${SQUIRE_LIB_PATH}/${squire_base}/process_missing_library.sh"
   source "${SQUIRE_LIB_PATH}/${squire_base}/load.sh"

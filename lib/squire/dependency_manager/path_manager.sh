@@ -7,11 +7,11 @@ require_relative $BASH_SOURCE 'path_manager/lib'
 #
 # @param $1 [String] Directory path to where all external libraries reside
 function integrate_external_libraries() {
-  library_directory=$1
-  libraries=$(ls $library_directory)
+  local library_directory=$1
+  local libraries=$(ls $library_directory)
 
   for library in $libraries; do
-    library_path="${library_directory}/${library}"
+    local library_path="${library_directory}/${library}"
     if [[ -d $library_path ]]; then
       process_external_library $library_path
     fi
@@ -19,7 +19,7 @@ function integrate_external_libraries() {
 }
 
 function process_external_library() {
-  library_path=$1
+  local library_path=$1
 
   process_bin_path $library_path
   process_lib_path $library_path

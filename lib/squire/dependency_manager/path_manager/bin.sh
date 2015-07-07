@@ -1,13 +1,13 @@
 function process_bin_path() {
-  library_path=$1
+  local library_path=$1
   # Convention over configuration for now
-  library_bin_path="${library_path}/bin"
+  local library_bin_path="${library_path}/bin"
 
   if [[ -d $library_bin_path ]]; then
-    library_binaries=$(ls $library_bin_path)
+    local library_binaries=$(ls $library_bin_path)
     for binary in $library_binaries; do
-      binary_path="${library_bin_path}/${binary}"
-      binary_target_path="${SQUIRE_CACHE_BIN}/$binary"
+      local binary_path="${library_bin_path}/${binary}"
+      local binary_target_path="${SQUIRE_CACHE_BIN}/$binary"
       if [[ -x $binary_path && ! -e $binary_target_path ]]; then
         ln -s $binary_path $binary_target_path
       else

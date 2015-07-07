@@ -6,7 +6,7 @@ function purge_squire_caches() {
   for cache in $SQUIRE_CACHE_BIN $SQUIRE_CACHE_LIB $SQUIRE_CACHE_AWK; do
     if [[ -d $cache ]]; then
       for item in $(ls $cache); do
-        cached_link="${cache}/${item}"
+        local cached_link="${cache}/${item}"
         if [[ -L $cached_link ]]; then
           echo "Removing ${cached_link} from squire cache."
           rm "${cached_link}"
@@ -23,8 +23,8 @@ function unset_squire_variables() {
 }
 
 function remove_directory_from_path_variable() {
-  path_variable_name=$1
-  path_to_remove=$2
+  local path_variable_name=$1
+  local path_to_remove=$2
 
   # evaluate the cleanup routine here
 }

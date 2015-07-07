@@ -1,7 +1,7 @@
 function process_missing_library() {
   required_library=$1
 
-  echo "Library ${required_library} could not be found. Killing process: ${$}"
+  echo "Library ${required_library} could not be found. Interrupting process: ${$}"
 
   # Ends current process without exiting the shell
   kill -INT $$
