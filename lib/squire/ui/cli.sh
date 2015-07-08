@@ -1,19 +1,24 @@
-function parse_cli_command() {
-  command=$1
-  shift
+require_relative $BASH_SOURCE 'cli/usage'
 
-  parse_cli_command_options "$@"
+function squire_install() {
+  dispatch_packages "$@"
 }
 
-function parse_cli_command_options() {
-  options=$(getopt -qu -o 'g' -l 'global' -- "$@")
+function parse_cli_install_options() {
+  local options=$(getopt -qu -o 'hg' --long 'help,global' -- "$@")
   set -- $options
+  echo $@
 
   while [[ -n "$1" ]]; do
     case "$1" in
-      -g|--global )
-        $SQUIRE_EXTERNAL_LIBRARY_PATH=${XDG_SQUIRE_DATA}/external_libraries
+      -h|--help )
         shift
+        squire_usage
+        exit 1
+        ;;
+      -g|--global )
+        shift
+        echo 'global activated'
         ;;
       -- )
         shift
@@ -25,29 +30,45 @@ function parse_cli_command_options() {
         ;;
     esac
   done
+
+  echo $options
 }
 
-function parse_cli_options() {
-options=$(getopt -qu -o 'h?v' -l 'help,version' -- "$@")
-set -- $options
+function parse_cli_command() {
+  while [[ -n "$1" ]]; do
+    case "$1" in
+      -v|--version )
+        squire_version
+        exit 0
+        ;;
+      -h|--help )
+        squire_usage
+        exit 1
+        ;;
+      init )
+        cat <<INIT
+          squire_locations="\${HOME}/.local/lib /usr/lib"
+          echo \$squire_locations
+INIT
+        shift
+        exit 0
+        ;;
+      install )
+        shift
+        squire_install "$@"
+        exit 0
+        ;;
+      uninstall )
+        shift
+        echo $@
+        exit 0
+        ;;
+      * )
+        break
+        ;;
+    esac
+  done
 
-while [[ -n "$1" ]]; do
-  case "$1" in
-    -v|--version )
-      version
-      exit 0
-      ;;
-    -h|--help )
-      usage
-      ;;
-    -- )
-      shift
-      break
-      ;;
-    * )
-      echo 'Internal error.'
-      exit 1
-      ;;
-  esac
-done
+  squire_usage
+  exit 1
 }

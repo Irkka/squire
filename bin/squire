@@ -1,22 +1,6 @@
 #!/bin/bash
 
-require 'squire'
+require 'squire/ui/cli'
+[[ $? -ne 0 ]] && echo 'squire not loaded. Exiting.' && exit 1
 
-while [[ -n "$1" ]]; do
-  case "$1" in
-    install )
-      shift
-      echo $@
-      break
-      ;;
-    uninstall )
-      shift
-      echo $@
-      break
-      ;;
-    * )
-      echo 'You can kiss my ass...'
-      exit 1
-      ;;
-  esac
-done
+parse_cli_command "$@"
