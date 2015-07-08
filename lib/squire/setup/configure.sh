@@ -21,7 +21,11 @@ function set_squire_variables() {
   SQUIRE_CACHE_AWK="${SQUIRE_CACHE}/awk"
   SQUIRE_EXTERNAL_LIBRARIES_DIR="${SQUIRE_EXTERNAL_LIBRARIES_DIR:-${SQUIRE_CACHE}/external}"
 
-  export SQUIRE_CONFIG SQUIRE_DATA SQUIRE_CACHE SQUIRE_CACHE_BIN SQUIRE_CACHE_LIB SQUIRE_EXTERNAL_LIBRARIES_DIR
+  # SQUIRE_TEMP_DIR is generated automatically under $SQUIRE_TEMP_DIR_ROOT at bootstrap phase, and thus it can't be configured here
+  local temp_dir=${TEMP_DIR:-/tmp}
+  SQUIRE_TEMP_DIR_ROOT=${SQUIRE_TEMP_DIR_ROOT:-${temp_dir}/${SQUIRE_APPLICATION_NAME}}
+
+  export SQUIRE_CONFIG SQUIRE_DATA SQUIRE_CACHE SQUIRE_CACHE_BIN SQUIRE_CACHE_LIB SQUIRE_EXTERNAL_LIBRARIES_DIR SQUIRE_TEMP_DIR_ROOT
 }
 
 function set_system_path_variables() {
@@ -29,7 +33,7 @@ function set_system_path_variables() {
   # This is the primary search path for modules
   SQUIRE_LIB_PATH="${SQUIRE_LIB_PATH}:${SQUIRE_CACHE_LIB}"
 
-  if [[ ! -v AWKPATH ]]; then
+  if [[ -z $AWKPATH ]]; then
     AWKPATH="${SQUIRE_CACHE_AWK}"
   else
     AWKPATH="${AWKPATH}:${SQUIRE_CACHE_AWK}"
