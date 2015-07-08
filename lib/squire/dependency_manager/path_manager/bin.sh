@@ -12,7 +12,7 @@ function process_bin_path() {
         ln -s $binary_path $binary_target_path
       else
         # Can't tolerate overwriting binaries - maybe a better solution can be found later
-        echo "Binary ${binary} already exists. Exiting."
+        echo "Target binary ${binary} already exists. Exiting."
         kill -INT $$
       fi
     done

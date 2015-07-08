@@ -8,7 +8,7 @@ function process_lib_path() {
     for library in $library_libraries; do
       local library_path="${library_lib_path}/${library}"
       local library_target_path="${SQUIRE_CACHE_LIB}/$library"
-      if [[ -f $library_path && ! -e $library_target_path ]]; then
+      if [[ -e $library_path && ! -e $library_target_path ]]; then
         ln -s $library_path $library_target_path
       else
         # Can't tolerate overwriting libraries - maybe a better solution can be found later
