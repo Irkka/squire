@@ -1,5 +1,15 @@
 require_relative $BASH_SOURCE 'cli/usage'
 
+function squire_exec() {
+  local command=$1
+
+  # Find the library folder of the current project. AWKPATH will be more of a challenge
+  SQUIRE_LIB_PATH="${PWD}/lib:${SQUIRE_LIB_PATH}"
+  export SQUIRE_LIB_PATH
+
+  eval $command
+}
+
 function squire_install() {
   dispatch_packages "$@"
 }
@@ -51,6 +61,11 @@ function parse_cli_command() {
           echo \$squire_locations
 INIT
         shift
+        exit 0
+        ;;
+      exec )
+        shift
+        squire_exec "$@"
         exit 0
         ;;
       install )
