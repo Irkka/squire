@@ -28,6 +28,7 @@ function integrate_external_libraries() {
   echo 'Purging squire caches...'
   purge_squire_caches
 
+  echo 'Populating cache paths...'
   for library in $libraries; do
     local library_path="${library_directory}/${library}"
     if [[ -d $library_path ]]; then
@@ -44,4 +45,4 @@ function process_external_library() {
   process_awk_path $library_path
 }
 
-export -f process_external_library integrate_external_libraries
+export -f process_external_library integrate_external_libraries purge_squire_caches

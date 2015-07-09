@@ -43,3 +43,5 @@ function squire_cleanup() {
   unset_squire_variables
   unset_xdg_variables
 }
+
+export -f squire_cleanup unset_squire_functions unset_xdg_variables unset_squire_variables clean_system_path_variables remove_directory_from_path_variable
