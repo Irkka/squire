@@ -11,22 +11,19 @@
 # @param $1 [String] Full path to the current file
 # @param $2 [String] Required library's path relative to the calling script
 function require_relative() {
-  local relative_bash_source=$(readlink -m $1)
-
-  if [[ -d $1 ]]; then
-    local relative_root_directory="$relative_bash_source"
-  else
-    local relative_root_directory="${relative_bash_source%/*}"
-  fi
+  local absolute_bash_source=$(readlink -m $1)
   local required_library_relative_path="${2}"
+  local absolute_root_directory="${absolute_bash_source%\/*}"
+  # Force .sh suffix
+  local library_path="${absolute_root_directory}/${required_library_relative_path%\.sh}.sh"
 
-  local library=$(readlink -f "${relative_root_directory}/${required_library_relative_path}")
-
-  if load "${library}"; then
+  # Resolve .., ., and other special characters in the path
+  local library=$(readlink -m ${library_relative_path})
+  if load $library ; then
     return 0
   fi
 
-  process_missing_library $required_library_relative_path
+  process_missing_library $library
   return 1
 }
 

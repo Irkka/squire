@@ -1,5 +1,5 @@
 function process_missing_library() {
-  required_library=$1
+  local required_library=$1
 
   echo "Library ${required_library} could not be found. Interrupting process: ${$}"
 
