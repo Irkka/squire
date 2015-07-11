@@ -6,6 +6,11 @@ function process_lib_path() {
   if [[ -d $library_lib_path ]]; then
     local library_libraries=$(ls $library_lib_path)
     for library in $library_libraries; do
+      if [[ $library =~ /.*\.awk/ ]]; then
+        echo 'Skipping awk library.'
+        continue
+      fi
+
       local library_path="${library_lib_path}/${library}"
       local library_target_path="${SQUIRE_CACHE_LIB}/$library"
       if [[ -e $library_path && ! -e $library_target_path ]]; then
