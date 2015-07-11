@@ -1,4 +1,4 @@
-require_relative $BASH_SOURCE 'dispatcher/installer'
+require_relative 'dispatcher/installer'
 
 function extract_name() {
   package_handle=$1

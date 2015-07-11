@@ -1,6 +1,6 @@
-require_relative $BASH_SOURCE 'path_manager/awk'
-require_relative $BASH_SOURCE 'path_manager/bin'
-require_relative $BASH_SOURCE 'path_manager/lib'
+require_relative 'path_manager/awk'
+require_relative 'path_manager/bin'
+require_relative 'path_manager/lib'
 
 function purge_squire_caches() {
   for cache in $SQUIRE_CACHE_BIN $SQUIRE_CACHE_LIB $SQUIRE_CACHE_AWK; do

@@ -1,3 +1,5 @@
+require_relative 'application_name'
+
 # The authoritative version number of this library.
 SQUIRE_VERSION='0.0.1'
 

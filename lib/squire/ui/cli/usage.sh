@@ -1,3 +1,5 @@
+require_relative '../../meta.sh'
+
 function squire_usage() {
   squire_version
   cat <<USAGE

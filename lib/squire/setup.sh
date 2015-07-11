@@ -1,6 +1,6 @@
-require_relative $BASH_SOURCE 'setup/cleanup'
-require_relative $BASH_SOURCE 'setup/configure'
-require_relative $BASH_SOURCE 'setup/bootstrap'
+require_relative 'setup/cleanup'
+require_relative 'setup/configure'
+require_relative 'setup/bootstrap'
 
 function squire_setup() {
   echo 'Setting up a clean slate...'

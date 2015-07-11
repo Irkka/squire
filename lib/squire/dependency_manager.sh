@@ -1,2 +1,2 @@
-require_relative $BASH_SOURCE 'dependency_manager/path_manager'
-require_relative $BASH_SOURCE 'dependency_manager/dispatcher'
+require_relative 'dependency_manager/path_manager'
+require_relative 'dependency_manager/dispatcher'

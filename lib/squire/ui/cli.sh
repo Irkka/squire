@@ -1,4 +1,5 @@
-require_relative $BASH_SOURCE 'cli/usage'
+require_relative '../../squire.sh'
+require_relative 'cli/usage'
 
 function squire_exec() {
   local command=$1
@@ -87,3 +88,5 @@ INIT
   squire_usage
   exit 1
 }
+
+export -f parse_cli_command parse_cli_install_options squire_install squire_exec

@@ -13,6 +13,7 @@ function require() {
   for library_directory in $library_directories ; do
     # Force .sh suffix
     local library="${library_directory%%\/}/${required_library%\.sh}.sh"
+
     if load $library ; then
       return 0
     fi

@@ -1,1 +1,1 @@
-require_relative $BASH_SOURCE 'ui/cli'
+require_relative 'ui/cli'

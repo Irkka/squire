@@ -15,10 +15,10 @@ function load() {
       fi
     done
 
+    # What if there's a cyclic load call? Problems will ensue. Check this!
     source $library
     LOADED_BY_SQUIRE="${LOADED_BY_SQUIRE} ${library}"
     export LOADED_BY_SQUIRE
-
     echo "${library} loaded"
     return 0
   fi
